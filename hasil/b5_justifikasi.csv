@@ -1,0 +1,6 @@
+Langkah,Parameter final,Alasan dan bukti,Risiko bila salah atur
+1. Ubah ukuran,"lebar 640 px, INTER_AREA",Lembar hitung 2.1: konvolusi 5x5 pada 640x480 39 kali lebih ringan daripada 4000x3000; bercak 5 mm tetap >= 10 px bila dipotret dari jarak <= 23 cm,"Terlalu kecil: bercak ringan hilang (Kode 2.2, fx 0,1 dan 0,05)"
+2. Koreksi gamma,"auto: 0,6 gelap; 1,6 terang; 1,0 lainnya","Satu gamma tetap tidak cocok untuk semua kondisi (Kode 3.2, Langkah 3.5); aturan otomatis memilih gamma yang benar untuk citra gelap dan terang","Gamma terlalu besar menggelapkan daun sampai jenuh, KB naik semu"
+3. CLAHE kanal V,"clip 1,0; tile 4 x 4; hanya bila indeks ketidakrataan > 0,65","Kode 3.3: clip 1 tile 4 memberi KB tertinggi pada citra bayangan; Kode 5.2: CLAHE menurunkan KB pada kondisi rata (konfigurasi B lebih tinggi dari C), maka hanya dipakai saat bayangan; kanal V agar Hue tidak bergeser",Clip besar atau CLAHE pada semua citra memperkuat tekstur dan tulang daun sehingga muncul bercak palsu
+4. Redam derau,median 3 x 3,Kode 4.2: median 3 terbaik untuk garam-merica dan tercepat; Kode 4.3: kernel 3 tidak menghapus bercak kecil (dI tetap sekitar 100%),Kernel 9 ke atas menghapus bercak ringan (dI turun tajam)
+5. Tajamkan,tidak dipakai (k = 0),Kode 4.4: penajaman memperkuat derau di latar; KB sudah cukup tanpa penajaman,"Bila dipakai sebelum redam derau, derau diperkuat"
